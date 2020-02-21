@@ -1,6 +1,6 @@
 FROM adoptopenjdk:8-hotspot-bionic
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y git python3 wget build-essential zip unzip && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && apt-get install -y git python3 wget build-essential zip unzip python && rm -rf /var/lib/apt/lists/*
 
 # Clone bazel source
 ARG BAZEL_VERSION=2.1.0
