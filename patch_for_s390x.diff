@@ -16,18 +16,26 @@ index 499288005c..570401da5f 100644
      name = "linux_x86_64",
      values = {"cpu": "k8"},
 diff --git a/third_party/BUILD b/third_party/BUILD
-index b458d521fd..62a6c6b2ca 100644
+index b458d521fd..4443743481 100644
 --- a/third_party/BUILD
 +++ b/third_party/BUILD
-@@ -469,6 +469,7 @@ UNNECESSARY_DYNAMIC_LIBRARIES = select({
+@@ -469,9 +469,12 @@ UNNECESSARY_DYNAMIC_LIBRARIES = select({
      "//src/conditions:arm": "*.so *.jnilib *.dll",
      "//src/conditions:linux_aarch64": "*.so *.jnilib *.dll",
      "//src/conditions:linux_ppc": "*.so *.jnilib *.dll",
+-    # Play it safe -- better have a big binary than a slow binary
+-    # zip -d does require an argument. Supply something bogus.
+-    "//conditions:default": "*.bogusextension",
 +    "//src/conditions:linux_s390x": "*.so *.jnilib *.dll",
-     # Play it safe -- better have a big binary than a slow binary
-     # zip -d does require an argument. Supply something bogus.
-     "//conditions:default": "*.bogusextension",
-@@ -480,7 +481,10 @@ genrule(
++    # Default is to play it safe -- better have a big binary than a slow binary
++    #   The empty string means nothing is to be removed from the library;
++    #   the rule command tests for the empty string explictly to avoid
++    #   zip erroring when it finds nothing to remove.
++    "//conditions:default": "",
+ })
+ 
+ # Remove native libraries that are for a platform different from the one we are
+@@ -480,7 +483,10 @@ genrule(
      name = "filter_netty_dynamic_libs",
      srcs = ["netty_tcnative/netty-tcnative-boringssl-static-2.0.24.Final.jar"],
      outs = ["netty_tcnative/netty-tcnative-filtered.jar"],

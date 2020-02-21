@@ -1,4 +1,4 @@
-FROM adoptopenjdk:8-hotspot-bionic
+FROM adoptopenjdk:11-hotspot-bionic
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y git python3 wget build-essential zip unzip python && rm -rf /var/lib/apt/lists/*
 
