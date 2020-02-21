@@ -1,0 +1,29 @@
+diff --git a/src/conditions/BUILD b/src/conditions/BUILD
+index 499288005c..570401da5f 100644
+--- a/src/conditions/BUILD
++++ b/src/conditions/BUILD
+@@ -16,6 +16,12 @@ config_setting(
+     visibility = ["//visibility:public"],
+ )
+ 
++config_setting(
++    name = "linux_s390x",
++    values = {"cpu": "s390x"},
++    visibility = ["//visibility:public"],
++)
++
+ config_setting(
+     name = "linux_x86_64",
+     values = {"cpu": "k8"},
+diff --git a/third_party/BUILD b/third_party/BUILD
+index b458d521fd..753d6edaa8 100644
+--- a/third_party/BUILD
++++ b/third_party/BUILD
+@@ -469,6 +469,7 @@ UNNECESSARY_DYNAMIC_LIBRARIES = select({
+     "//src/conditions:arm": "*.so *.jnilib *.dll",
+     "//src/conditions:linux_aarch64": "*.so *.jnilib *.dll",
+     "//src/conditions:linux_ppc": "*.so *.jnilib *.dll",
++    "//src/conditions:linux_s390x": "*.so *.jnilib *.dll",
+     # Play it safe -- better have a big binary than a slow binary
+     # zip -d does require an argument. Supply something bogus.
+     "//conditions:default": "*.bogusextension",
