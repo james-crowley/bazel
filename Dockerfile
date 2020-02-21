@@ -15,7 +15,7 @@ RUN wget --no-check-certificate --no-cookies https://github.com/bazelbuild/bazel
 
 COPY patch_for_s390x.diff /bazel-src/
 WORKDIR bazel-src
-RUN git apply patch_for_s390x.diff && rm -f patch_for_s390x.diff && unset JAVA_VERSION
-
+RUN git apply patch_for_s390x.diff && rm -f patch_for_s390x.diff
+ENV JAVA_VERSION=
 
 RUN env BAZEL_JAVAC_OPTS="-J-Xms1024m -J-Xmx2048m" EXTRA_BAZEL_ARGS="--host_javabase=@local_jdk//:jdk" bash ./compile.sh
